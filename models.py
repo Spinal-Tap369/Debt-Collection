@@ -12,7 +12,7 @@ app.config['SECRET_KEY'] = 'your_secret_key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'  # Use your preferred database connection string
 db = SQLAlchemy(app)
 
-
+asdasfasfasfafsasfasfasfasfasfafadfadfafd
 
 # Database Models
 class User(db.Model, UserMixin):
