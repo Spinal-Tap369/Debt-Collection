@@ -1,16 +1,11 @@
 # main.py
 from flask import Flask, render_template, redirect, url_for, flash, request
-from flask_sqlalchemy import SQLAlchemy
-from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, DateField, RadioField
-from wtforms.validators import DataRequired, EqualTo
+from models import app, db, User, Loan
+from forms import LoginForm, RegistrationForm, AddLoanForm, EditLoanForm, DeleteLoanForm
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 
-app = Flask(__name__)
-app.config['SECRET_KEY'] = 'your_secret_key'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'  # Use your preferred database connection string
-db = SQLAlchemy(app)
+
 login_manager = LoginManager(app)
 login_manager.login_view = 'login'
 
@@ -26,54 +21,8 @@ def load_user(user_id):
         return None
 
 
-# Database Models
-class User(db.Model, UserMixin):
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(50), unique=True, nullable=False)
-    date_of_birth = db.Column(db.Date, nullable=False)
-    password = db.Column(db.String(100), nullable=False)
 
 
-class Loan(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    loan_number = db.Column(db.String(20), unique=True, nullable=False)
-    borrower_name = db.Column(db.String(100), nullable=False)
-    amount_owed = db.Column(db.Float, nullable=False)
-    borrower_address = db.Column(db.String(200), nullable=False)
-    borrower_contact_number = db.Column(db.String(15), nullable=False)
-
-
-# app.app_context().push()
-# db.create_all()
-
-# Forms
-class LoginForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
-
-
-class RegistrationForm(FlaskForm):
-    username = StringField('Username', validators=[DataRequired()])
-    date_of_birth = DateField('Date of Birth', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
-
-class AddLoanForm(FlaskForm):
-    loan_number = StringField('Loan Number', validators=[DataRequired()])
-    borrower_name = StringField('Borrower\'s Name', validators=[DataRequired()])
-    amount_owed = StringField('Amount Owed', validators=[DataRequired()])
-    borrower_address = StringField('Borrower\'s Address', validators=[DataRequired()])
-    borrower_contact_number = StringField('Borrower\'s Contact Number', validators=[DataRequired()])
-
-class EditLoanForm(FlaskForm):
-    loan_number = StringField('Loan Number', validators=[DataRequired()])
-    borrower_name = StringField('Borrower\'s Name', validators=[DataRequired()])
-    amount_owed = StringField('Amount Owed', validators=[DataRequired()])
-    borrower_address = StringField('Borrower\'s Address', validators=[DataRequired()])
-    borrower_contact_number = StringField('Borrower\'s Contact Number', validators=[DataRequired()])
-
-class DeleteLoanForm(FlaskForm):
-    loan_number = StringField('Loan Number', validators=[DataRequired()])
-    password = PasswordField('Password', validators=[DataRequired()])
 
 
 # Routes
