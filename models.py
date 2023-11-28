@@ -25,5 +25,6 @@ class Loan(db.Model):
     borrower_contact_number = db.Column(db.String(15), nullable=False)
 
 
-app.app_context().push()
-db.create_all()
+# Run these on Terminal to create DB, after importing app and db from models.py
+# app.app_context().push()
+# db.create_all()
