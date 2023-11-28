@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 
-
-=======
->>>>>>> f60ebcb (Manually restructured main branch in Local Repo)
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
@@ -11,8 +7,6 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'  # Use your preferred database connection string
 db = SQLAlchemy(app)
-
-asasdadd
 
 # Database Models
 class User(db.Model, UserMixin):
