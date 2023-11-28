@@ -25,5 +25,5 @@ class Loan(db.Model):
     borrower_contact_number = db.Column(db.String(15), nullable=False)
 
 
-# app.app_context().push()
-# db.create_all()
+app.app_context().push()
+db.create_all()
