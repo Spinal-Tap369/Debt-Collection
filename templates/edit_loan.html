@@ -1,0 +1,52 @@
+<!-- templates/edit_loan.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Loan</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2>Edit Loan</h2>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="alert alert-danger">
+                {% for message in messages %}
+                    <p>{{ message }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+    <form method="post" action="{{ url_for('edit_loan') }}">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            <label for="loan_number">Loan Number:</label>
+            {{ form.loan_number(class="form-control", placeholder="Enter loan number") }}
+        </div>
+        <div class="form-group">
+            <label for="borrower_name">Borrower's Name:</label>
+            {{ form.borrower_name(class="form-control", placeholder="Enter borrower's name") }}
+        </div>
+        <div class="form-group">
+            <label for="amount_owed">Amount Owed:</label>
+            {{ form.amount_owed(class="form-control", placeholder="Enter amount owed") }}
+        </div>
+        <div class="form-group">
+            <label for="borrower_address">Borrower's Address:</label>
+            {{ form.borrower_address(class="form-control", placeholder="Enter borrower's address") }}
+        </div>
+        <div class="form-group">
+            <label for="borrower_contact_number">Borrower's Contact Number:</label>
+            {{ form.borrower_contact_number(class="form-control", placeholder="Enter contact number") }}
+        </div>
+        <button type="submit" class="btn btn-primary">Edit Loan</button>
+        <a href="{{ url_for('loan_dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+    </form>
+</div>
+
+</body>
+</html>
