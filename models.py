@@ -13,6 +13,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///site.db'  # Use your preferre
 db = SQLAlchemy(app)
 
 
+
 # Database Models
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
