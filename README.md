@@ -5,6 +5,12 @@ They will update the records daily in case a payment is made by the borrower.
 After a debt has been paid in full, the record will be deleted!
 
 ___
+# Table of Content
+* [Languages used](#languages-used)
+* [Requirement Engineering](#requirements-engineering)
+* [Installation](#installation)
+* [UML](#uml-diagrams-)
+* [DDD](#ddd)
 
 # Languages used
 1. Python - Uses the Flask Framework
