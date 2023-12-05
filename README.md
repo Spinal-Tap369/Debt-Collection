@@ -75,6 +75,49 @@ Class diagram : https://github.com/Spinal-Tap369/Debt-Collection/blob/main/uml/c
 3. ### Activity Diagram:
 * The activity diagram describes the workflow of the Debt Collection Manager.
 Activity Diagram : https://github.com/Spinal-Tap369/Debt-Collection/blob/main/uml/activity_diagram.png
+___
+# DDD
+In order to make good use of the 100,000,000 euros provided by Edlich-Investment, this simple application can have much more domains and functionalities.
+## Event storming:
+During the following domains were decided.
+1. ### Loan Application: 
+Deals with Loan application processes such as submitting an application, approving/rejecting etc.
+2. ### User Authentication:
+This Domain will take of registering and logging-in/logging-out the various users of this application.
+3. ### Loan processing:
+Deals with various aspects of a loan such as disbursement, check if it is repaid or has the loan been defaulted.
+4. ### Risk Assessment: 
+Risk Assessment domain will have a part in deciding weather a loan is provided to an applicant or not.
+5. ### Payment gateway:
+This domain will take care of all payment related operations in our application
+6. ### Notification:
+As the name suggests, this domain deals with sending Notifications to users.
+7. ### Audit Log:
+The Audit log domain will create logs such as payment history, borrower track record, collateral details etc.
+8. ### Credit Score:
+This domain is responsible to check and send updates regarding Credit score.
+
+## Core Domain Chart:
+https://github.com/Spinal-Tap369/Debt-Collection/blob/main/uml/Domain_rel_diagram.png
+## Relation between the Domains:
+### Loan App and User Auth:
+* User registration triggers Loan Application creation.
+* User login is required for loan application submission.
+### Loan App and Loan Processing:
+* Loan approval triggers loan processing events.
+* Loan rejection leads to further handling in loan processing.
+### Loan Processing and Risk Assessment:
+* Risk assessment events influence loan processing decisions.
+### Loan Processing and Payment Gateway:
+* Loan issuance triggers payment initiation.
+* Successful payments lead to loan repayment events.
+### Notification and Loan Processing:
+* Notifications are sent based on loan processing events.
+### Audit Logging and all Domains:
+* Audit logs are created for important events across all domains.
+### Credit Scoring and Loan Processing:
+* Credit score checking is part of the risk assessment in loan processing.
+
 
 
 
