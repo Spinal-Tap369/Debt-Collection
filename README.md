@@ -7,7 +7,7 @@ After a debt has been paid in full, the record will be deleted!
 
 # Languages used
 1. Python - Uses the Flask Framework
-2. HTML, CSS and Bootstrap
+2. HTML, CSS and Bootstrap 
 
 
 # Requirements Engineering
