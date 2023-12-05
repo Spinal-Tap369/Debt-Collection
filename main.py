@@ -1,7 +1,7 @@
 # main.py
-from flask import Flask, render_template, redirect, url_for, flash, request
+from flask import  render_template, redirect, url_for, flash, request, jsonify
 from models import app, db, User, Loan
-from forms import LoginForm, RegistrationForm, AddLoanForm, EditLoanForm, DeleteLoanForm
+from forms import LoginForm, RegistrationForm, AddLoanForm, EditLoanForm, DeleteLoanForm, SearchLoanForm
 from flask_login import LoginManager, UserMixin, login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -123,6 +123,50 @@ def delete_loan():
         else:
             flash('Loan not found.', 'danger')
     return render_template('delete_loan.html', form=form)
+
+
+@app.route('/get_loan_details', methods=['GET'])
+@login_required
+def get_loan_details():
+    loan_number = request.args.get('loan_number')
+    loan = Loan.query.filter_by(loan_number=loan_number).first()
+
+    if loan:
+        loan_details = {
+            'loan_number': loan.loan_number,
+            'borrower_name': loan.borrower_name,
+            'amount_owed': loan.amount_owed,
+            'borrower_address': loan.borrower_address,
+            'borrower_contact_number': loan.borrower_contact_number
+        }
+        return jsonify(loan_details)
+
+    return jsonify({'error': 'Loan not found'}), 404
+
+
+@app.route('/search_loan', methods=['GET', 'POST'])
+@login_required
+def search_loan():
+    form = SearchLoanForm()  # You need to create a WTForms form for this
+
+    if form.validate_on_submit():
+        loan_number = form.loan_number.data
+        loan = Loan.query.filter_by(loan_number=loan_number).first()
+
+        if loan:
+            loan_details = {
+                'loan_number': loan.loan_number,
+                'borrower_name': loan.borrower_name,
+                'amount_owed': loan.amount_owed,
+                'borrower_address': loan.borrower_address,
+                'borrower_contact_number': loan.borrower_contact_number
+            }
+            return render_template('search_loan.html', loan_details=loan_details)
+
+        flash('Loan not found.', 'danger')
+
+    return render_template('search_loan.html', form=form)
+
 
 
 # Implement other routes for add, edit, delete, and superadmin_dashboard
