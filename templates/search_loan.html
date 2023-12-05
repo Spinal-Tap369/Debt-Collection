@@ -1,0 +1,63 @@
+<!-- templates/search_loan.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search Loan</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2>Search Loan</h2>
+    <form id="searchForm">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.loan_number.label }}
+            {{ form.loan_number(class="form-control", id="loanNumberInput", placeholder="Enter Loan Number") }}
+        </div>
+        <button type="button" class="btn btn-primary" onclick="searchLoan()">Search</button>
+    </form>
+
+    <div id="loanDetailsContainer"></div>
+
+    <a href="{{ url_for('loan_dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
+
+    <script>
+        function searchLoan() {
+            var loanNumber = document.getElementById('loanNumberInput').value;
+
+            if (loanNumber) {
+                var xhr = new XMLHttpRequest();
+
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        var loanDetails = JSON.parse(xhr.responseText);
+                        displayLoanDetails(loanDetails);
+                    } else if (xhr.readyState === 4) {
+                        alert('Loan not found.');
+                    }
+                };
+
+                xhr.open('GET', '{{ url_for("get_loan_details") }}?loan_number=' + loanNumber, true);
+                xhr.send();
+            } else {
+                alert('Please enter a loan number.');
+            }
+        }
+
+        function displayLoanDetails(loanDetails) {
+            var container = document.getElementById('loanDetailsContainer');
+            container.innerHTML = '<h3>Loan Details</h3>' +
+                '<p><strong>Loan Number:</strong> ' + loanDetails.loan_number + '</p>' +
+                '<p><strong>Borrower\'s Name:</strong> ' + loanDetails.borrower_name + '</p>' +
+                '<p><strong>Amount Owed:</strong> ' + loanDetails.amount_owed + '</p>' +
+                '<p><strong>Borrower\'s Address:</strong> ' + loanDetails.borrower_address + '</p>' +
+                '<p><strong>Borrower\'s Contact Number:</strong> ' + loanDetails.borrower_contact_number + '</p>';
+        }
+    </script>
+</div>
+
+</body>
+</html>

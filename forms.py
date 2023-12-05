@@ -1,5 +1,5 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, DateField, RadioField
+from wtforms import StringField, PasswordField, DateField, RadioField, SubmitField
 from wtforms.validators import DataRequired, EqualTo
 
 # Forms
@@ -30,3 +30,7 @@ class EditLoanForm(FlaskForm):
 class DeleteLoanForm(FlaskForm):
     loan_number = StringField('Loan Number', validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
+
+class SearchLoanForm(FlaskForm):
+    loan_number = StringField('Loan Number', validators=[DataRequired()])
+    submit = SubmitField('Search')
