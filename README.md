@@ -4,11 +4,13 @@ An employee of a debt collection agency(user) will login to this application and
 They will update the records daily in case a payment is made by the borrower. 
 After a debt has been paid in full, the record will be deleted!
 
+___
 
 # Languages used
 1. Python - Uses the Flask Framework
 2. HTML, CSS and Bootstrap 
 
+___
 
 # Requirements Engineering
 * The Various features to be added to the Debt-Collection manager has been planned out on Jira : https://spinal-tap369.atlassian.net/jira/software/projects/SCRUM/boards/1
@@ -35,6 +37,8 @@ After a debt has been paid in full, the record will be deleted!
 3. ### Scalability: 
 * The architecture should allow for easy scalability to accommodate potential future growth.
 
+___
+
 
 # Installation
 ## Pre-requisites:
@@ -55,6 +59,23 @@ After a debt has been paid in full, the record will be deleted!
 * This will create the Database.
 * After Database if created, open the Terminal and run the command - python main.py
 * This will run the website on port 5000 on your local machine. /127.0.0.1:5000
+
+
+___
+
+
+# UML Diagrams :
+* UML or Unified Modeling Language Diagrams are ways to represent the design, architecture and working of an application.
+1. ### Use case diagram:
+* As of now, there is only one user model defined who can login, register, logout, View the loan dashboard, perform actions on Loans like Add, delete, edit and search loan and View loan records.
+Use case diagram : https://github.com/Spinal-Tap369/Debt-Collection/blob/main/uml/use_case_diagram.png
+2. ### Class Diagram:
+* There are two main classes, Loan and User. The remaining classes are forms which are used for the various operations such as login, register, add loan, search loan, delete loan and edit loan etc.
+Class diagram : https://github.com/Spinal-Tap369/Debt-Collection/blob/main/uml/class_diagram.png
+3. ### Activity Diagram:
+* The activity diagram describes the workflow of the Debt Collection Manager.
+Activity Diagram : https://github.com/Spinal-Tap369/Debt-Collection/blob/main/uml/activity_diagram.png
+
 
 
 
