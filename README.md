@@ -11,6 +11,7 @@ ___
 * [Installation](#installation)
 * [UML](#uml-diagrams-)
 * [DDD](#ddd)
+* [Licence](#licence)
 
 # Languages used
 1. Python - Uses the Flask Framework
@@ -123,7 +124,9 @@ https://github.com/Spinal-Tap369/Debt-Collection/blob/main/uml/Domain_rel_diagra
 * Audit logs are created for important events across all domains.
 ### Credit Scoring and Loan Processing:
 * Credit score checking is part of the risk assessment in loan processing.
-
+___
+# Licence:
+This application is under the MIT Licence.
 
 
 
