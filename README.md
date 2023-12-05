@@ -80,21 +80,21 @@ ___
 In order to make good use of the 100,000,000 euros provided by Edlich-Investment, this simple application can have much more domains and functionalities.
 ## Event storming:
 During the following domains were decided.
-1. ### Loan Application: 
+### 1. Loan Application: 
 Deals with Loan application processes such as submitting an application, approving/rejecting etc.
-2. ### User Authentication:
+### 2. User Authentication:
 This Domain will take of registering and logging-in/logging-out the various users of this application.
-3. ### Loan processing:
+### 3. Loan processing:
 Deals with various aspects of a loan such as disbursement, check if it is repaid or has the loan been defaulted.
-4. ### Risk Assessment: 
+### 4. Risk Assessment: 
 Risk Assessment domain will have a part in deciding weather a loan is provided to an applicant or not.
-5. ### Payment gateway:
+### 5. Payment gateway:
 This domain will take care of all payment related operations in our application
-6. ### Notification:
+### 6. Notification:
 As the name suggests, this domain deals with sending Notifications to users.
-7. ### Audit Log:
+### 7. Audit Log:
 The Audit log domain will create logs such as payment history, borrower track record, collateral details etc.
-8. ### Credit Score:
+### 8. Credit Score:
 This domain is responsible to check and send updates regarding Credit score.
 
 ## Core Domain Chart:
