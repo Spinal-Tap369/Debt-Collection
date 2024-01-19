@@ -1,6 +1,6 @@
 from flask import render_template, redirect, url_for, flash, request, jsonify
 from flask_login import login_user, login_required, logout_user, current_user
-from werkzeug.security import generate_password_hash, check_password_hash
+from werkzeug.security import check_password_hash, generate_password_hash
 from models import User, Loan, db
 from forms import LoginForm, AddLoanForm, EditLoanForm, DeleteLoanForm, RegistrationForm, SearchLoanForm, ChangePasswordForm
 
@@ -43,17 +43,9 @@ def configure_routes(app):
 
         if form.validate_on_submit():
             user = User.query.filter_by(username=form.username.data).first()
-
-            if user:
-                if check_password_hash(user.password, form.password.data):
-                    if user.username == 'sysadmin':
-                        return login_user_redirect(user, 'Sysadmin', 'sysadmin')  # Redirect to sysadmin page
-                    else:
-                        return login_user_redirect(user, user.username, 'loan_dashboard')  # Redirect to loan dashboard
-                else:
-                    handle_invalid_login()
-            else:
-                handle_invalid_login()
+            if user and check_password_hash(user.password, form.password.data):
+                return login_user_redirect(user, 'Sysadmin' if user.username == 'sysadmin' else user.username, 'sysadmin' if user.username == 'sysadmin' else 'loan_dashboard')
+            handle_invalid_login()
 
         return render_template('login.html', form=form)
 
@@ -63,9 +55,8 @@ def configure_routes(app):
         if current_user.is_authenticated and current_user.username == 'sysadmin':
             users = User.query.all()
             return render_template('sysadmin.html', users=users)
-        else:
-            handle_access_denied()
-            return redirect(url_for('login'))
+        handle_access_denied()
+        return redirect(url_for('login'))
 
     @app.route('/register', methods=['GET', 'POST'])
     def register():
@@ -174,12 +165,10 @@ def configure_routes(app):
         if current_user.is_authenticated and current_user.username == 'sysadmin':
             handle_user_deletion(user_id)
             return redirect(url_for('sysadmin'))
-        else:
-            handle_access_denied()
-            return redirect(url_for('login'))
+        handle_access_denied()
+        return redirect(url_for('login'))
 
 # Helper functions
-
 
 def add_loan_to_database(form):
     loan = Loan(
@@ -193,7 +182,6 @@ def add_loan_to_database(form):
     db.session.commit()
     flash('Loan added successfully.', 'success')
 
-
 def update_loan_details(loan, form):
     loan.borrower_name = form.borrower_name.data
     loan.amount_owed = form.amount_owed.data
@@ -201,7 +189,6 @@ def update_loan_details(loan, form):
     loan.borrower_contact_number = form.borrower_contact_number.data
     db.session.commit()
     flash('Loan details updated successfully.', 'success')
-
 
 def handle_loan_deletion(form):
     loan_number = form.loan_number.data
@@ -218,7 +205,6 @@ def handle_loan_deletion(form):
     else:
         handle_loan_not_found()
 
-
 def create_loan_details_dict(loan):
     return {
         'loan_number': loan.loan_number,
@@ -228,17 +214,14 @@ def create_loan_details_dict(loan):
         'borrower_contact_number': loan.borrower_contact_number
     }
 
-
 def search_loan_by_number(loan_number):
     return Loan.query.filter_by(loan_number=loan_number).first()
-
 
 def change_user_password(user, new_password):
     hashed_password = generate_password_hash(new_password, method='pbkdf2:sha256')
     user.password = hashed_password
     db.session.commit()
     flash('Password changed successfully.', 'success')
-
 
 def handle_user_deletion(user_id):
     user = User.query.get(user_id)
