@@ -4,6 +4,8 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, DateField, SubmitField
 from wtforms.validators import DataRequired, EqualTo
 
+Loan_Number = "Loan Number"
+
 
 # Forms
 class LoginForm(FlaskForm):
@@ -18,7 +20,7 @@ class RegistrationForm(FlaskForm):
 
 
 class AddLoanForm(FlaskForm):
-    loan_number = StringField('Loan Number', validators=[DataRequired()])
+    loan_number = StringField(Loan_Number, validators=[DataRequired()])
     borrower_name = StringField('Borrower\'s Name', validators=[DataRequired()])
     amount_owed = StringField('Amount Owed', validators=[DataRequired()])
     borrower_address = StringField('Borrower\'s Address', validators=[DataRequired()])
@@ -26,7 +28,7 @@ class AddLoanForm(FlaskForm):
 
 
 class EditLoanForm(FlaskForm):
-    loan_number = StringField('Loan Number', validators=[DataRequired()])
+    loan_number = StringField(Loan_Number, validators=[DataRequired()])
     borrower_name = StringField('Borrower\'s Name', validators=[DataRequired()])
     amount_owed = StringField('Amount Owed', validators=[DataRequired()])
     borrower_address = StringField('Borrower\'s Address', validators=[DataRequired()])
@@ -34,12 +36,12 @@ class EditLoanForm(FlaskForm):
 
 
 class DeleteLoanForm(FlaskForm):
-    loan_number = StringField('Loan Number', validators=[DataRequired()])
+    loan_number = StringField(Loan_Number, validators=[DataRequired()])
     password = PasswordField('Password', validators=[DataRequired()])
 
 
 class SearchLoanForm(FlaskForm):
-    loan_number = StringField('Loan Number', validators=[DataRequired()])
+    loan_number = StringField(Loan_Number, validators=[DataRequired()])
     submit = SubmitField('Search')
 
 
