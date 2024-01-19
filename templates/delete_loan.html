@@ -1,5 +1,4 @@
 <!-- templates/delete_loan.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -21,11 +20,17 @@
             </div>
         {% endif %}
     {% endwith %}
+
     <form method="post" action="{{ url_for('delete_loan') }}">
         {{ form.hidden_tag() }}
         <div class="form-group">
             <label for="loan_number">Loan Number:</label>
-            {{ form.loan_number(class="form-control", placeholder="Enter loan number") }}
+            <div class="input-group">
+                {{ form.loan_number(class="form-control", placeholder="Enter loan number", id="loan_number") }}
+                <div class="input-group-append">
+                    <button type="button" class="btn btn-info" onclick="getLoanDetails()">Search</button>
+                </div>
+            </div>
         </div>
         <div class="form-group">
             <label for="password">Password:</label>
@@ -34,6 +39,32 @@
         <button type="submit" class="btn btn-danger">Delete Loan</button>
         <a href="{{ url_for('loan_dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
     </form>
+
+    <!-- Include the following script at the end of the body section -->
+    <script>
+        // Function to retrieve loan details using AJAX
+        function getLoanDetails() {
+            var loanNumber = document.getElementById('loan_number').value;
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', '/get_loan_details?loan_number=' + loanNumber, true);
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    if ('error' in response) {
+                        alert(response.error);
+                    } else {
+                        // Optionally, you can update the UI with the retrieved loan details
+                        // document.getElementById('borrower_name').value = response.borrower_name;
+                        // document.getElementById('amount_owed').value = response.amount_owed;
+                        // document.getElementById('borrower_address').value = response.borrower_address;
+                        // document.getElementById('borrower_contact_number').value = response.borrower_contact_number;
+                    }
+                }
+            };
+            xhr.send();
+        }
+    </script>
+
 </div>
 
 </body>

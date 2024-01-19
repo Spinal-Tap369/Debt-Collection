@@ -1,5 +1,4 @@
 <!-- templates/edit_loan.html -->
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +7,7 @@
     <title>Edit Loan</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
+
 <body>
 
 <div class="container mt-5">
@@ -21,32 +21,85 @@
             </div>
         {% endif %}
     {% endwith %}
+
+    <!-- Search form for loan number -->
+    <form method="post" action="{{ url_for('edit_loan') }}" class="mb-4">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            <label for="loan_number">Search by Loan Number:</label>
+            <div class="input-group">
+                {{ form.loan_number(class="form-control", placeholder="Enter loan number", id="loan_number") }}
+                <div class="input-group-append">
+                    <button type="button" class="btn btn-info" id="search_button">Search</button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <!-- Edit loan form with auto-filled fields -->
     <form method="post" action="{{ url_for('edit_loan') }}">
         {{ form.hidden_tag() }}
         <div class="form-group">
             <label for="loan_number">Loan Number:</label>
-            {{ form.loan_number(class="form-control", placeholder="Enter loan number") }}
+            {{ form.loan_number(class="form-control", placeholder="Enter loan number", id="loan_number_input") }}
         </div>
         <div class="form-group">
             <label for="borrower_name">Borrower's Name:</label>
-            {{ form.borrower_name(class="form-control", placeholder="Enter borrower's name") }}
+            {{ form.borrower_name(class="form-control", placeholder="Enter borrower's name", id="borrower_name") }}
         </div>
         <div class="form-group">
             <label for="amount_owed">Amount Owed:</label>
-            {{ form.amount_owed(class="form-control", placeholder="Enter amount owed") }}
+            {{ form.amount_owed(class="form-control", placeholder="Enter amount owed", id="amount_owed") }}
         </div>
         <div class="form-group">
             <label for="borrower_address">Borrower's Address:</label>
-            {{ form.borrower_address(class="form-control", placeholder="Enter borrower's address") }}
+            {{ form.borrower_address(class="form-control", placeholder="Enter borrower's address", id="borrower_address") }}
         </div>
         <div class="form-group">
             <label for="borrower_contact_number">Borrower's Contact Number:</label>
-            {{ form.borrower_contact_number(class="form-control", placeholder="Enter contact number") }}
+            {{ form.borrower_contact_number(class="form-control", placeholder="Enter contact number", id="borrower_contact_number") }}
         </div>
         <button type="submit" class="btn btn-primary">Edit Loan</button>
         <a href="{{ url_for('loan_dashboard') }}" class="btn btn-secondary">Back to Dashboard</a>
     </form>
 </div>
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // Function to fetch loan details using AJAX
+        function fetchLoanDetails() {
+            var loanNumber = $('#loan_number').val();
+
+            $.ajax({
+                url: '/get_loan_details',
+                type: 'GET',
+                data: {loan_number: loanNumber},
+                success: function (data) {
+                    // Populate form fields with retrieved data
+                    $('#loan_number_input').val(data.loan_number);
+                    $('#borrower_name').val(data.borrower_name);
+                    $('#amount_owed').val(data.amount_owed);
+                    $('#borrower_address').val(data.borrower_address);
+                    $('#borrower_contact_number').val(data.borrower_contact_number);
+                },
+                error: function (error) {
+                    console.error('Error fetching loan details:', error);
+                    // Handle error, e.g., display a message to the user
+                }
+            });
+        }
+
+        // Trigger fetchLoanDetails when the page loads
+        fetchLoanDetails();
+
+        // Attach fetchLoanDetails to the search button click event
+        $('#search_button').click(function (e) {
+            e.preventDefault();
+            fetchLoanDetails();
+        });
+    });
+</script>
 
 </body>
 </html>
