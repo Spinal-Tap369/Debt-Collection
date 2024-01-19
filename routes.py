@@ -4,71 +4,72 @@ from werkzeug.security import check_password_hash, generate_password_hash
 from models import User, Loan, db
 from forms import LoginForm, AddLoanForm, EditLoanForm, DeleteLoanForm, RegistrationForm, SearchLoanForm, ChangePasswordForm
 
-
 def login_user_redirect(user, role, page):
     login_user(user)
     flash(f"Logged in as {role}, User ID: {user.id}", 'success')
     return redirect(url_for(page))
 
-
 def handle_invalid_login():
     flash('Invalid username or password', 'danger')
     print(f"Login failed. Form data: {request.form}")
 
-
 def handle_existing_loan():
     flash('Loan number already exists. Please choose a different one.', 'danger')
-
 
 def handle_loan_not_found():
     flash('Loan not found.', 'danger')
 
-
 def handle_password_mismatch():
     flash('Incorrect password.', 'danger')
-
 
 def handle_user_not_found():
     flash('User not found.', 'danger')
 
-
 def handle_access_denied():
     flash('Access denied. You do not have permission to perform this action.', 'danger')
-
 
 def configure_routes(app):
     @app.route('/', methods=['GET', 'POST'])
     def login():
         form = LoginForm()
 
-        if form.validate_on_submit():
-            user = User.query.filter_by(username=form.username.data).first()
-            if user and check_password_hash(user.password, form.password.data):
-                return login_user_redirect(user, 'Sysadmin' if user.username == 'sysadmin' else user.username, 'sysadmin' if user.username == 'sysadmin' else 'loan_dashboard')
+        if not form.validate_on_submit():
             handle_invalid_login()
+            return render_template('login.html', form=form)
 
-        return render_template('login.html', form=form)
+        user = User.query.filter_by(username=form.username.data).first()
+
+        if not user or not check_password_hash(user.password, form.password.data):
+            handle_invalid_login()
+            return render_template('login.html', form=form)
+
+        role = 'Sysadmin' if user.username == 'sysadmin' else user.username
+        page = 'sysadmin' if user.username == 'sysadmin' else 'loan_dashboard'
+        return login_user_redirect(user, role, page)
 
     @app.route('/sysadmin', methods=['GET', 'POST'])
     @login_required
     def sysadmin():
-        if current_user.is_authenticated and current_user.username == 'sysadmin':
-            users = User.query.all()
-            return render_template('sysadmin.html', users=users)
-        handle_access_denied()
-        return redirect(url_for('login'))
+        if not (current_user.is_authenticated and current_user.username == 'sysadmin'):
+            handle_access_denied()
+            return redirect(url_for('login'))
+
+        users = User.query.all()
+        return render_template('sysadmin.html', users=users)
 
     @app.route('/register', methods=['GET', 'POST'])
     def register():
         form = RegistrationForm()
-        if form.validate_on_submit():
-            hashed_password = generate_password_hash(form.password.data)
-            user = User(username=form.username.data, date_of_birth=form.date_of_birth.data, password=hashed_password)
-            db.session.add(user)
-            db.session.commit()
-            flash('Registration successful. Please log in.', 'success')
-            return redirect(url_for('login'))
-        return render_template('register.html', form=form)
+
+        if not form.validate_on_submit():
+            return render_template('register.html', form=form)
+
+        hashed_password = generate_password_hash(form.password.data)
+        user = User(username=form.username.data, date_of_birth=form.date_of_birth.data, password=hashed_password)
+        db.session.add(user)
+        db.session.commit()
+        flash('Registration successful. Please log in.', 'success')
+        return redirect(url_for('login'))
 
     @app.route('/logout')
     @login_required
