@@ -1,10 +1,39 @@
-# routes.py
-
 from flask import render_template, redirect, url_for, flash, request, jsonify
 from flask_login import login_user, login_required, logout_user, current_user
 from werkzeug.security import generate_password_hash, check_password_hash
 from models import User, Loan, db
 from forms import LoginForm, AddLoanForm, EditLoanForm, DeleteLoanForm, RegistrationForm, SearchLoanForm, ChangePasswordForm
+
+
+def login_user_redirect(user, role, page):
+    login_user(user)
+    flash(f"Logged in as {role}, User ID: {user.id}", 'success')
+    return redirect(url_for(page))
+
+
+def handle_invalid_login():
+    flash('Invalid username or password', 'danger')
+    print(f"Login failed. Form data: {request.form}")
+
+
+def handle_existing_loan():
+    flash('Loan number already exists. Please choose a different one.', 'danger')
+
+
+def handle_loan_not_found():
+    flash('Loan not found.', 'danger')
+
+
+def handle_password_mismatch():
+    flash('Incorrect password.', 'danger')
+
+
+def handle_user_not_found():
+    flash('User not found.', 'danger')
+
+
+def handle_access_denied():
+    flash('Access denied. You do not have permission to perform this action.', 'danger')
 
 
 def configure_routes(app):
@@ -13,39 +42,29 @@ def configure_routes(app):
         form = LoginForm()
 
         if form.validate_on_submit():
-            # Query the user by username
             user = User.query.filter_by(username=form.username.data).first()
 
             if user:
-                # Check the password using the correct hashing method (pbkdf2:sha256)
                 if check_password_hash(user.password, form.password.data):
-                    # Check if the user is sysadmin
                     if user.username == 'sysadmin':
-                        login_user(user)
-                        flash(f"Logged in as Sysadmin", 'success')
-                        return redirect(url_for('sysadmin'))
+                        return login_user_redirect(user, 'Sysadmin', 'sysadmin')  # Redirect to sysadmin page
                     else:
-                        login_user(user)
-                        flash(f"Logged in as {user.username}, User ID: {user.id}", 'success')
-                        return redirect(url_for('loan_dashboard'))
+                        return login_user_redirect(user, user.username, 'loan_dashboard')  # Redirect to loan dashboard
                 else:
-                    flash('Invalid username or password', 'danger')
-                    print(f"Password Mismatch! Login failed. Form data: {request.form}")
+                    handle_invalid_login()
             else:
-                flash('Invalid username or password', 'danger')
-                print(f"User not found. Login failed. Form data: {request.form}")
+                handle_invalid_login()
 
         return render_template('login.html', form=form)
 
     @app.route('/sysadmin', methods=['GET', 'POST'])
     @login_required
     def sysadmin():
-        # Check if the current user is authenticated and has the username 'sysadmin'
         if current_user.is_authenticated and current_user.username == 'sysadmin':
             users = User.query.all()
-            return render_template('sysadmin.html', users=users)  # Pass 'users' to the template
+            return render_template('sysadmin.html', users=users)
         else:
-            flash('Access denied. You do not have permission to view this page.', 'danger')
+            handle_access_denied()
             return redirect(url_for('login'))
 
     @app.route('/register', methods=['GET', 'POST'])
@@ -77,23 +96,13 @@ def configure_routes(app):
     def add_loan():
         form = AddLoanForm()
         if form.validate_on_submit():
-            # Check if loan number already exists
             existing_loan = Loan.query.filter_by(loan_number=form.loan_number.data).first()
             if existing_loan:
-                flash('Loan number already exists. Please choose a different one.', 'danger')
+                handle_existing_loan()
             else:
-                loan = Loan(loan_number=form.loan_number.data,
-                            borrower_name=form.borrower_name.data,
-                            amount_owed=form.amount_owed.data,
-                            borrower_address=form.borrower_address.data,
-                            borrower_contact_number=form.borrower_contact_number.data)
-                db.session.add(loan)
-                db.session.commit()
-                flash('Loan added successfully.', 'success')
+                add_loan_to_database(form)
                 return redirect(url_for('loan_dashboard'))
         return render_template('add_loan.html', form=form)
-
-    # ...
 
     @app.route('/edit_loan', methods=['GET', 'POST'])
     @login_required
@@ -103,15 +112,9 @@ def configure_routes(app):
         if form.validate_on_submit():
             loan = Loan.query.filter_by(loan_number=form.loan_number.data).first()
             if not loan:
-                flash('Loan not found.', 'danger')
+                handle_loan_not_found()
             elif request.method == 'POST':
-                # Update loan details based on form data
-                loan.borrower_name = form.borrower_name.data
-                loan.amount_owed = form.amount_owed.data
-                loan.borrower_address = form.borrower_address.data
-                loan.borrower_contact_number = form.borrower_contact_number.data
-                db.session.commit()
-                flash('Loan details updated successfully.', 'success')
+                update_loan_details(loan, form)
                 return redirect(url_for('loan_dashboard'))
 
         return render_template('edit_loan.html', form=form)
@@ -122,20 +125,7 @@ def configure_routes(app):
         form = DeleteLoanForm()
 
         if form.validate_on_submit():
-            loan_number = form.loan_number.data
-            loan = Loan.query.filter_by(loan_number=loan_number).first()
-
-            if loan:
-                # Check if the password is correct
-                if check_password_hash(current_user.password, form.password.data):
-                    db.session.delete(loan)
-                    db.session.commit()
-                    flash('Loan deleted successfully.', 'success')
-                    return redirect(url_for('loan_dashboard'))
-                else:
-                    flash('Incorrect password.', 'danger')
-            else:
-                flash('Loan not found.', 'danger')
+            handle_loan_deletion(form)
 
         return render_template('delete_loan.html', form=form)
 
@@ -146,37 +136,19 @@ def configure_routes(app):
         loan = Loan.query.filter_by(loan_number=loan_number).first()
 
         if loan:
-            loan_details = {
-                'loan_number': loan.loan_number,
-                'borrower_name': loan.borrower_name,
-                'amount_owed': loan.amount_owed,
-                'borrower_address': loan.borrower_address,
-                'borrower_contact_number': loan.borrower_contact_number
-            }
-            return jsonify(loan_details)
-
+            return jsonify(create_loan_details_dict(loan))
         return jsonify({'error': 'Loan not found'}), 404
 
     @app.route('/search_loan', methods=['GET', 'POST'])
     @login_required
     def search_loan():
-        form = SearchLoanForm()  # You need to create a WTForms form for this
+        form = SearchLoanForm()
 
         if form.validate_on_submit():
-            loan_number = form.loan_number.data
-            loan = Loan.query.filter_by(loan_number=loan_number).first()
-
+            loan = search_loan_by_number(form.loan_number.data)
             if loan:
-                loan_details = {
-                    'loan_number': loan.loan_number,
-                    'borrower_name': loan.borrower_name,
-                    'amount_owed': loan.amount_owed,
-                    'borrower_address': loan.borrower_address,
-                    'borrower_contact_number': loan.borrower_contact_number
-                }
-                return render_template('search_loan.html', loan_details=loan_details)
-
-            flash('Loan not found.', 'danger')
+                return render_template('search_loan.html', loan_details=create_loan_details_dict(loan))
+            handle_loan_not_found()
 
         return render_template('search_loan.html', form=form)
 
@@ -185,25 +157,13 @@ def configure_routes(app):
     def change_password(user_id):
         user = User.query.get(user_id)
         if not user:
-            flash('User not found.', 'danger')
+            handle_user_not_found()
             return redirect(url_for('sysadmin'))
 
         form = ChangePasswordForm()
 
         if request.method == 'POST' and form.validate_on_submit():
-            current_password = form.current_password.data
-            new_password = form.new_password.data
-
-            if not user.check_password(current_password):
-                flash('Current password is incorrect.', 'danger')
-                return redirect(url_for('change_password', user_id=user.id))
-
-            # Update the password using generate_password_hash with the same method used during registration
-            hashed_password = generate_password_hash(new_password, method='pbkdf2:sha256')
-            user.password = hashed_password
-            db.session.commit()
-
-            flash('Password changed successfully.', 'success')
+            change_user_password(user, form.new_password.data)
             return redirect(url_for('sysadmin'))
 
         return render_template('change_password.html', form=form, user=user)
@@ -212,20 +172,83 @@ def configure_routes(app):
     @login_required
     def delete_user(user_id):
         if current_user.is_authenticated and current_user.username == 'sysadmin':
-            user = User.query.get(user_id)
-            if not user:
-                flash('User not found.', 'danger')
-                return redirect(url_for('sysadmin'))
-
-            # Do not allow deletion of sysadmin
-            if user.username == 'sysadmin':
-                flash('Cannot delete sysadmin.', 'danger')
-            else:
-                db.session.delete(user)
-                db.session.commit()
-                flash(f"User {user.username} deleted.", 'success')
-
+            handle_user_deletion(user_id)
             return redirect(url_for('sysadmin'))
         else:
-            flash('Access denied. You do not have permission to perform this action.', 'danger')
+            handle_access_denied()
             return redirect(url_for('login'))
+
+# Helper functions
+
+
+def add_loan_to_database(form):
+    loan = Loan(
+        loan_number=form.loan_number.data,
+        borrower_name=form.borrower_name.data,
+        amount_owed=form.amount_owed.data,
+        borrower_address=form.borrower_address.data,
+        borrower_contact_number=form.borrower_contact_number.data
+    )
+    db.session.add(loan)
+    db.session.commit()
+    flash('Loan added successfully.', 'success')
+
+
+def update_loan_details(loan, form):
+    loan.borrower_name = form.borrower_name.data
+    loan.amount_owed = form.amount_owed.data
+    loan.borrower_address = form.borrower_address.data
+    loan.borrower_contact_number = form.borrower_contact_number.data
+    db.session.commit()
+    flash('Loan details updated successfully.', 'success')
+
+
+def handle_loan_deletion(form):
+    loan_number = form.loan_number.data
+    loan = Loan.query.filter_by(loan_number=loan_number).first()
+
+    if loan:
+        if check_password_hash(current_user.password, form.password.data):
+            db.session.delete(loan)
+            db.session.commit()
+            flash('Loan deleted successfully.', 'success')
+            return redirect(url_for('loan_dashboard'))
+        else:
+            handle_password_mismatch()
+    else:
+        handle_loan_not_found()
+
+
+def create_loan_details_dict(loan):
+    return {
+        'loan_number': loan.loan_number,
+        'borrower_name': loan.borrower_name,
+        'amount_owed': loan.amount_owed,
+        'borrower_address': loan.borrower_address,
+        'borrower_contact_number': loan.borrower_contact_number
+    }
+
+
+def search_loan_by_number(loan_number):
+    return Loan.query.filter_by(loan_number=loan_number).first()
+
+
+def change_user_password(user, new_password):
+    hashed_password = generate_password_hash(new_password, method='pbkdf2:sha256')
+    user.password = hashed_password
+    db.session.commit()
+    flash('Password changed successfully.', 'success')
+
+
+def handle_user_deletion(user_id):
+    user = User.query.get(user_id)
+    if not user:
+        handle_user_not_found()
+        return
+
+    if user.username == 'sysadmin':
+        flash('Cannot delete sysadmin.', 'danger')
+    else:
+        db.session.delete(user)
+        db.session.commit()
+        flash(f"User {user.username} deleted.", 'success')
