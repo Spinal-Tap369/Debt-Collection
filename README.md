@@ -11,6 +11,7 @@ ___
 * [Installation](#installation)
 * [UML](#uml-diagrams-)
 * [DDD](#ddd)
+* [Code Metrics](#code-metrics)
 * [Licence](#licence)
 
 # Languages used
@@ -20,7 +21,7 @@ ___
 ___
 
 # Requirements Engineering
-* The Various features to be added to the Debt-Collection manager has been planned out on Jira : https://spinal-tap369.atlassian.net/jira/software/projects/SCRUM/boards/1
+* The Various features to be added to the Debt-Collection manager has been planned out on Jira and Notion : https://www.notion.so/2621f4fd7a4d4274a5279a8e3245c9da?v=2201760d1ae14df3811f3834e85cf147&pvs=4 and Jira.
 ## Functional Requirements
 1. ### User Authentication:
 * Users are working for the Debt Collection firm and must be able to register for an account for the Debt-Collection manager.
@@ -75,13 +76,13 @@ ___
 * UML or Unified Modeling Language Diagrams are ways to represent the design, architecture and working of an application.
 1. ### Use case diagram:
 * As of now, there is only one user model defined who can login, register, logout, View the loan dashboard, perform actions on Loans like Add, delete, edit and search loan and View loan records.
-Use case diagram : https://github.com/Spinal-Tap369/Debt-Collection/blob/main/uml/use_case_diagram.png
+Use case diagram : https://github.com/Spinal-Tap369/Debt-Collection/blob/main/uml/use-case-diagram.png
 2. ### Class Diagram:
 * There are two main classes, Loan and User. The remaining classes are forms which are used for the various operations such as login, register, add loan, search loan, delete loan and edit loan etc.
-Class diagram : https://github.com/Spinal-Tap369/Debt-Collection/blob/main/uml/class_diagram.png
+Class diagram : https://github.com/Spinal-Tap369/Debt-Collection/blob/main/uml/class-diagram.png
 3. ### Activity Diagram:
 * The activity diagram describes the workflow of the Debt Collection Manager.
-Activity Diagram : https://github.com/Spinal-Tap369/Debt-Collection/blob/main/uml/activity_diagram.png
+Activity Diagram : https://github.com/Spinal-Tap369/Debt-Collection/blob/main/uml/activity-diagram.png
 ___
 # DDD
 In order to make good use of the 100,000,000 euros provided by Edlich-Investment, this simple application can have much more domains and functionalities.
@@ -123,8 +124,21 @@ https://github.com/Spinal-Tap369/Debt-Collection/blob/main/uml/Domain_rel_diagra
 ### Audit Logging and all Domains:
 * Audit logs are created for important events across all domains.
 ### Credit Scoring and Loan Processing:
-* Credit score checking is part of the risk assessment in loan processing.
+* Credit score checking is part of the risk assessment in Loan processing.
 ___
+# Code Metrics
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Spinal-Tap369_Debt-Collection&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Spinal-Tap369_Debt-Collection)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=Spinal-Tap369_Debt-Collection&metric=bugs)](https://sonarcloud.io/summary/new_code?id=Spinal-Tap369_Debt-Collection)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=Spinal-Tap369_Debt-Collection&metric=vulnerabilities)](https://sonarcloud.io/summary/new_code?id=Spinal-Tap369_Debt-Collection)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=Spinal-Tap369_Debt-Collection&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=Spinal-Tap369_Debt-Collection)
+[![Reliability Rating](https://sonarcloud.io/api/project_badges/measure?project=Spinal-Tap369_Debt-Collection&metric=reliability_rating)](https://sonarcloud.io/summary/new_code?id=Spinal-Tap369_Debt-Collection)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=Spinal-Tap369_Debt-Collection&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=Spinal-Tap369_Debt-Collection)
+[![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=Spinal-Tap369_Debt-Collection&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=Spinal-Tap369_Debt-Collection)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=Spinal-Tap369_Debt-Collection&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=Spinal-Tap369_Debt-Collection)
+[![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=Spinal-Tap369_Debt-Collection&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=Spinal-Tap369_Debt-Collection)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=Spinal-Tap369_Debt-Collection&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=Spinal-Tap369_Debt-Collection)
+___
+
 # Licence:
 This application is under the MIT Licence.
 
