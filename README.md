@@ -21,7 +21,7 @@ ___
 ___
 
 # Requirements Engineering
-* The Various features to be added to the Debt-Collection manager has been planned out on Jira and Notion : https://www.notion.so/2621f4fd7a4d4274a5279a8e3245c9da?v=2201760d1ae14df3811f3834e85cf147&pvs=4 and Jira.
+* The Various features to be added to the Debt-Collection manager has been planned out on Notion : https://www.notion.so/2621f4fd7a4d4274a5279a8e3245c9da?v=2201760d1ae14df3811f3834e85cf147&pvs=4 and Jira : https://spinal-tap369.atlassian.net/jira/software/projects/SCRUM/boards/1.
 ## Functional Requirements
 1. ### User Authentication:
 * Users are working for the Debt Collection firm and must be able to register for an account for the Debt-Collection manager.
