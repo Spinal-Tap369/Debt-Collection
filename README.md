@@ -21,7 +21,7 @@ ___
 ___
 
 # Requirements Engineering
-* The Various features to be added to the Debt-Collection manager has been planned out on Notion : https://www.notion.so/2621f4fd7a4d4274a5279a8e3245c9da?v=2201760d1ae14df3811f3834e85cf147&pvs=4 and Jira : https://spinal-tap369.atlassian.net/jira/software/projects/SCRUM/boards/1.
+* The Various features to be added to the Debt-Collection manager has been planned out on Jira and Notion : https://www.notion.so/2621f4fd7a4d4274a5279a8e3245c9da?v=2201760d1ae14df3811f3834e85cf147&pvs=4 and Jira.
 ## Functional Requirements
 1. ### User Authentication:
 * Users are working for the Debt Collection firm and must be able to register for an account for the Debt-Collection manager.
@@ -138,7 +138,25 @@ ___
 [![Maintainability Rating](https://sonarcloud.io/api/project_badges/measure?project=Spinal-Tap369_Debt-Collection&metric=sqale_rating)](https://sonarcloud.io/summary/new_code?id=Spinal-Tap369_Debt-Collection)
 [![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=Spinal-Tap369_Debt-Collection&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=Spinal-Tap369_Debt-Collection)
 ___
-
+# Clean Code Development
+## Clean Coding principles followed in my Web-Application
+1. [Meaningful Variable and Function Names](https://github.com/Spinal-Tap369/Debt-Collection/blob/main/main.py#L13): The variable and function names are meaningful and follow a clear naming convention. For example, load_user, handle_invalid_login, and add_loan_to_database have names that convey their purpose.
+2. [Consistent Formatting](https://github.com/Spinal-Tap369/Debt-Collection/blob/main/main.py#L25): The code maintains consistent formatting and indentation throughout, contributing to its readability.
+3. [Separation of Concerns](https://github.com/Spinal-Tap369/Debt-Collection/blob/main/main.py#L4C6-L4C12): The code is organized into separate files (main.py, models.py, forms.py, and separate routes in routes.py), adhering to the separation of concerns principle.
+4. [Use of Flask Features](https://github.com/Spinal-Tap369/Debt-Collection/blob/main/routes.py#L1): The code leverages Flask features, such as Flask-Login, to handle user authentication. This is a good practice as it utilizes well-established and secure authentication mechanisms.
+5. [Error Handling](https://github.com/Spinal-Tap369/Debt-Collection/blob/main/routes.py#L1): Error handling is implemented for database queries and operations, providing meaningful error messages for debugging.
+## CCD Cheetsheet points
+1.  Meaningful Variable and Function Names
+2.  Consistent Formatting - Maintain consistent indentation and formatting throughout the code.
+3.  Modularization and Reusability = Break down complex logic into smaller, modular functions.
+4.  Comments and Documentation - Provide inline documentation for functions and classes.
+5.  Follow Best Security Practices 
+6.  Validation and Input Sanitization - Sanitize and validate inputs to prevent security vulnerabilities.
+7.  Optimized Database Queries - Use appropriate indexes for frequently queried fields.
+8.  Configuration Management - Manage configuration settings in a central location and Use environment variables for configuration sensitive information.
+9.  Clean and Readable HTML Templates
+10. Code Reviews - Conduct code reviews to get feedback from peers and 
+___
 # Licence:
 This application is under the MIT Licence.
 
