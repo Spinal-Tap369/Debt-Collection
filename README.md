@@ -157,6 +157,19 @@ ___
 9.  Clean and Readable HTML Templates
 10. Code Reviews - Conduct code reviews to get feedback from peers and 
 ___
+# Unit Tests
+The following unit test cases have been made and run through pytest. The script can be found [here](https://github.com/Spinal-Tap369/Debt-Collection/blob/main/test_main.py)
+1. Register new user - username : tim123, password : tim123, Date of birth : 12/9/2012
+2. Login using tim123
+3. Add a loan as user tim123 with the following loan details -> Loan Number: 99999, Borrower's Name: Sanjay, Amount Owed: 1000, Borrower's Address : Mumbai, Borrower's contact number : 100
+4. After Loan is added, test search loan functionality with the following Loan number : 99999
+5. After testing search feature, test delete feature by deleting Loan number : 99999
+6. Logout the User : tim123
+7. Login as SysAdmin -> username : sysadmin, password : root69
+8. Change password of user tim123 to 1234root
+9. After changing password, delete the user tim123
+10. Logout of SysAdmin
+___
 # Licence:
 This application is under the MIT Licence.
 
