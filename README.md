@@ -138,9 +138,14 @@ ___
 7.  Optimized Database Queries - Use appropriate indexes for frequently queried fields.
 8.  Configuration Management - Manage configuration settings in a central location and Use environment variables for configuration sensitive information.
 9.  Clean and Readable HTML Templates
-10. Code Reviews - Conduct code reviews to get feedback from peers and 
+10. Code Reviews - Conduct code reviews to get feedback from peers.
 ___
 # Build Management
+For this project, I have done build management using Pybuilder and the following files are made : 
+1. [build.py](https://github.com/Spinal-Tap369/Debt-Collection/blob/main/build.py) : This script is used by PyBuilder to define the build settings and tasks for the project. The set_properties function is typically used to configure project-specific settings.
+2. [pyproject.toml](https://github.com/Spinal-Tap369/Debt-Collection/blob/main/pyproject.toml) : This file specifies the build system configuration in the PEP 518 format. It declares the requirement for the PyBuilder version and specifies the build-backend as "pybuilder.pep517."
+3. [setup.py](https://github.com/Spinal-Tap369/Debt-Collection/blob/main/setup.py) : It checks if PyBuilder (pyb) is available; if not, it installs PyBuilder using pip. hen, it uses PyBuilder to perform tasks like cleaning, packaging, and moving the generated distribution files to the project directory. Finally, it calls setup.py in the project directory to install the project using pip.
+Pybuilder build successfull [screenshot](https://github.com/Spinal-Tap369/Debt-Collection/blob/main/uml/Build_successfull.png)
 ___
 # Unit Tests
 The following unit test cases have been made and run through pytest. The script can be found [here](https://github.com/Spinal-Tap369/Debt-Collection/blob/main/test_main.py)
@@ -154,6 +159,22 @@ The following unit test cases have been made and run through pytest. The script 
 8. Change password of user tim123 to 1234root
 9. After changing password, delete the user tim123
 10. Logout of SysAdmin
+___
+# IDE Details
+For this project, I have used the Pycharm Community edition IDE. This IDE is very robust and the best thing about this IDE for me is that it automatically creates a Python Virtual Environment when setting up a new project
+## Pycharm Keyboard-shortcuts
+1. Ctrl + / : Comment out any block
+2. Ctrl + E : View recent files
+3. Alt + Enter : Show Context Actions
+4. Ctrl + Alt + S : Opens the interpreter settings through which also contains the Pythin Package manager.
+___
+# Functional Programming
+Even though my Flask application does not strictly adhere to Functional Programming Paradigms, there are examples of Functional Programming I have utilized in my project.
+1. Pure Functions: Functions like [load_user](https://github.com/Spinal-Tap369/Debt-Collection/blob/main/main.py#L14), [handle_invalid_login](https://github.com/Spinal-Tap369/Debt-Collection/blob/main/routes.py#L12), [handle_existing_loan](https://github.com/Spinal-Tap369/Debt-Collection/blob/main/routes.py#L16), etc., don't seem to have any side effects and can be considered pure functions as they depend only on their input arguments.
+2. Higher-order Functions: Functions like [configure_routes](https://github.com/Spinal-Tap369/Debt-Collection/blob/main/routes.py#L31) take other functions as parameters (app) and are considered higher-order functions.
+3. Functions as Parameters and Return Values: Functions like [login_user_redirect](https://github.com/Spinal-Tap369/Debt-Collection/blob/main/routes.py#L7), [add_loan_to_database](https://github.com/Spinal-Tap369/Debt-Collection/blob/main/routes.py#L174), and [update_loan_details](https://github.com/Spinal-Tap369/Debt-Collection/blob/main/routes.py#L186) take other functions as parameters or return functions.
+4. Closures / anonymous functions : Python uses Lamda functions.The [create_loan_details_dict1](https://github.com/Spinal-Tap369/Debt-Collection/blob/main/routes.py#L228) function in my code is a Lambda function.
+5. Only final data structures : The [Loan_Number](https://github.com/Spinal-Tap369/Debt-Collection/blob/main/forms.py#L7) variable in my code is a Tuple which is an immutable data type.
 ___
 # Licence:
 This application is under the MIT Licence.
