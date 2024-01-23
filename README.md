@@ -20,34 +20,6 @@ ___
 
 ___
 
-# Requirements Engineering
-* The Various features to be added to the Debt-Collection manager has been planned out on Jira and Notion : https://www.notion.so/2621f4fd7a4d4274a5279a8e3245c9da?v=2201760d1ae14df3811f3834e85cf147&pvs=4 and Jira.
-## Functional Requirements
-1. ### User Authentication:
-* Users are working for the Debt Collection firm and must be able to register for an account for the Debt-Collection manager.
-* User sessions should be managed to ensure secure access to the system.
-2. ### Loan Management:
-* Users should be able to add a new loan record, providing necessary details such as loan number, borrower name, amount owed, borrower address, and contact number.
-* Users can view a dashboard displaying a list of all loans.
-* The system must support the searching, editing, and deletion of loans.
-3. ### Loan Details:
-* Users can view detailed information about a specific loan, including borrower details and the amount owed.
-4. ### Search Functionality:
-* Users should be able to search for a specific loan by its loan number.
-5. ### Security:
-* Passwords must be securely hashed and stored.
-* User sessions must be secure and protected against common web vulnerabilities.
-## Non-Functional Requirements
-1. ### Performance: 
-* The system should handle a reasonable number of concurrent users without significant performance degradation.
-2. ### Usability:
-* The user interface should be intuitive and easy to navigate.
-3. ### Scalability: 
-* The architecture should allow for easy scalability to accommodate potential future growth.
-
-___
-
-
 # Installation
 ## Pre-requisites:
 1. ### The latest Python or a Python IDE such as PyCharm Community Edition
@@ -70,8 +42,6 @@ ___
 
 
 ___
-
-
 # UML Diagrams :
 * UML or Unified Modeling Language Diagrams are ways to represent the design, architecture and working of an application.
 1. ### Use case diagram:
@@ -83,6 +53,30 @@ Class diagram : https://github.com/Spinal-Tap369/Debt-Collection/blob/main/uml/c
 3. ### Activity Diagram:
 * The activity diagram describes the workflow of the Debt Collection Manager.
 Activity Diagram : https://github.com/Spinal-Tap369/Debt-Collection/blob/main/uml/activity-diagram.png
+___
+# Requirements Engineering
+* The Various features to be added to the Debt-Collection manager has been planned out on Jira and [Notion](https://www.notion.so/2621f4fd7a4d4274a5279a8e3245c9da?v=2201760d1ae14df3811f3834e85cf147&pvs=4) and [Jira](https://spinal-tap369.atlassian.net/jira/software/projects/SCRUM/boards/1).
+![img.png](img.png)
+___
+# Analysis
+The Debt collection Manager is a tool used by employees at a Debt Collection agency to keep track for disbursed loans and their details (Loan).
+[Analysis Checklist](https://www.notion.so/Debt-Collection-Manager-checklist-33aced09cc704a7c867808fe7b5e1e58?pvs=4)
+1. ### User Authentication:
+* Users are working for the Debt Collection firm and must be able to register for an account for the Debt-Collection manager.
+* User sessions should be managed to ensure secure access to the system.
+2. ### Loan Management:
+* Users should be able to add a new loan record, providing necessary details such as loan number, borrower name, amount owed, borrower address, and contact number.
+* Users can view a dashboard displaying a list of all loans.
+* The system must support the searching, editing, and deletion of loans.
+3. ### Loan Details:
+* Users can view detailed information about a specific loan, including borrower details and the amount owed.
+4. ### Search Functionality:
+* Users should be able to search for a specific loan by its loan number.
+5. ### Security:
+* Passwords must be securely hashed and stored.
+* User sessions must be secure and protected against common web vulnerabilities.
+## Analysis checklist
+You can find my Analysis for the Semester project [here](https://www.notion.so/Semester-Project-Start-up-Analysis-6df138d5b46f42dbad50a70bbb75e87d?pvs=4)
 ___
 # DDD
 In order to make good use of the 100,000,000 euros provided by Edlich-Investment, this simple application can have much more domains and functionalities.
@@ -156,6 +150,8 @@ ___
 8.  Configuration Management - Manage configuration settings in a central location and Use environment variables for configuration sensitive information.
 9.  Clean and Readable HTML Templates
 10. Code Reviews - Conduct code reviews to get feedback from peers and 
+___
+# Build Management
 ___
 # Unit Tests
 The following unit test cases have been made and run through pytest. The script can be found [here](https://github.com/Spinal-Tap369/Debt-Collection/blob/main/test_main.py)
