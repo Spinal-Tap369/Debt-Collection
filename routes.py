@@ -128,7 +128,7 @@ def configure_routes(app):
         loan = Loan.query.filter_by(loan_number=loan_number).first()
 
         if loan:
-            return jsonify(create_loan_details_dict(loan))
+            return jsonify(create_loan_details_dict1(loan))
         return jsonify({'error': 'Loan not found'}), 404
 
     @app.route('/search_loan', methods=['GET', 'POST'])
@@ -139,7 +139,7 @@ def configure_routes(app):
         if form.validate_on_submit():
             loan = search_loan_by_number(form.loan_number.data)
             if loan:
-                return render_template('search_loan.html', loan_details=create_loan_details_dict(loan))
+                return render_template('search_loan.html', loan_details=create_loan_details_dict1(loan))
             handle_loan_not_found()
 
         return render_template('search_loan.html', form=form)
@@ -223,6 +223,17 @@ def change_user_password(user, new_password):
     user.password = hashed_password
     db.session.commit()
     flash('Password changed successfully.', 'success')
+
+
+create_loan_details_dict1 = lambda loan: {
+    'loan_number': loan.loan_number,
+    'borrower_name': loan.borrower_name,
+    'amount_owed': loan.amount_owed,
+    'borrower_address': loan.borrower_address,
+    'borrower_contact_number': loan.borrower_contact_number
+}
+
+
 
 def handle_user_deletion(user_id):
     user = User.query.get(user_id)
