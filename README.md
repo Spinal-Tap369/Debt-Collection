@@ -61,20 +61,6 @@ ___
 # Analysis
 The Debt collection Manager is a tool used by employees at a Debt Collection agency to keep track for disbursed loans and their details (Loan).
 [Analysis Checklist](https://www.notion.so/Debt-Collection-Manager-checklist-33aced09cc704a7c867808fe7b5e1e58?pvs=4)
-1. ### User Authentication:
-* Users are working for the Debt Collection firm and must be able to register for an account for the Debt-Collection manager.
-* User sessions should be managed to ensure secure access to the system.
-2. ### Loan Management:
-* Users should be able to add a new loan record, providing necessary details such as loan number, borrower name, amount owed, borrower address, and contact number.
-* Users can view a dashboard displaying a list of all loans.
-* The system must support the searching, editing, and deletion of loans.
-3. ### Loan Details:
-* Users can view detailed information about a specific loan, including borrower details and the amount owed.
-4. ### Search Functionality:
-* Users should be able to search for a specific loan by its loan number.
-5. ### Security:
-* Passwords must be securely hashed and stored.
-* User sessions must be secure and protected against common web vulnerabilities.
 ## Analysis checklist
 You can find my Analysis for the Semester project [here](https://www.notion.so/Semester-Project-Start-up-Analysis-6df138d5b46f42dbad50a70bbb75e87d?pvs=4)
 ___
