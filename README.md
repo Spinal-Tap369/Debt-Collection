@@ -13,6 +13,11 @@ ___
 * [Analysis](#analysis)
 * [DDD](#ddd)
 * [Code Metrics](#code-metrics)
+* [Clean Code Development](#code-metrics)
+* [Build Management](#build-management)
+* [Unit Test](#unit-test)
+* [IDE Details](#ide-details)
+* [Functional Programming](#functional-programming)
 * [Licence](#licence)
 
 # Languages used
