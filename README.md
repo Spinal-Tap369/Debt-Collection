@@ -145,7 +145,7 @@ For this project, I have done build management using Pybuilder and the following
 1. [build.py](https://github.com/Spinal-Tap369/Debt-Collection/blob/main/build.py) : This script is used by PyBuilder to define the build settings and tasks for the project. The set_properties function is typically used to configure project-specific settings.
 2. [pyproject.toml](https://github.com/Spinal-Tap369/Debt-Collection/blob/main/pyproject.toml) : This file specifies the build system configuration in the PEP 518 format. It declares the requirement for the PyBuilder version and specifies the build-backend as "pybuilder.pep517."
 3. [setup.py](https://github.com/Spinal-Tap369/Debt-Collection/blob/main/setup.py) : It checks if PyBuilder (pyb) is available; if not, it installs PyBuilder using pip. hen, it uses PyBuilder to perform tasks like cleaning, packaging, and moving the generated distribution files to the project directory. Finally, it calls setup.py in the project directory to install the project using pip.
-Pybuilder build successfull [screenshot](https://github.com/Spinal-Tap369/Debt-Collection/blob/main/uml/Build_successfull.png)
+### Pybuilder build successfull [screenshot](https://github.com/Spinal-Tap369/Debt-Collection/blob/main/uml/Build_successfull.png)
 ___
 # Unit Tests
 The following unit test cases have been made and run through pytest. The script can be found [here](https://github.com/Spinal-Tap369/Debt-Collection/blob/main/test_main.py)
