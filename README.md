@@ -7,9 +7,10 @@ After a debt has been paid in full, the record will be deleted!
 ___
 # Table of Content
 * [Languages used](#languages-used)
-* [Requirement Engineering](#requirements-engineering)
 * [Installation](#installation)
 * [UML](#uml-diagrams-)
+* [Requirement Engineering](#requirements-engineering)
+* [Analysis](#analysis)
 * [DDD](#ddd)
 * [Code Metrics](#code-metrics)
 * [Licence](#licence)
