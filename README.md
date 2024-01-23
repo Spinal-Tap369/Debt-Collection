@@ -86,8 +86,8 @@ The Audit log domain will create logs such as payment history, borrower track re
 This domain is responsible to check and send updates regarding Credit score.
 
 ## Core Domain Chart:
-https://github.com/Spinal-Tap369/Debt-Collection/blob/main/uml/Domain_rel_diagram.png
-## Relation between the Domains:
+https://github.com/Spinal-Tap369/Debt-Collection/blob/main/uml/DDD_Core_domain_chart.png
+## Relation between the Domains [Domain Relation Diagram](https://github.com/Spinal-Tap369/Debt-Collection/blob/main/uml/Domain_rel_diagram.png):
 ### Loan App and User Auth:
 * User registration triggers Loan Application creation.
 * User login is required for loan application submission.
@@ -105,6 +105,8 @@ https://github.com/Spinal-Tap369/Debt-Collection/blob/main/uml/Domain_rel_diagra
 * Audit logs are created for important events across all domains.
 ### Credit Scoring and Loan Processing:
 * Credit score checking is part of the risk assessment in Loan processing.
+
+
 ___
 # Code Metrics
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Spinal-Tap369_Debt-Collection&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Spinal-Tap369_Debt-Collection)
