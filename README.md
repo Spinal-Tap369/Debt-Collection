@@ -66,8 +66,8 @@ You can find my Analysis for the Semester project [here](https://www.notion.so/S
 ___
 # DDD
 In order to make good use of the 100,000,000 euros provided by Edlich-Investment, this simple application can have much more domains and functionalities.
-## Event storming:
-During the following domains were decided.
+## Event storming: Find the chaotic event storming session points [here](https://github.com/Spinal-Tap369/Debt-Collection/blob/main/uml/Event_storming.png)
+After event Storming, the following domains were decided [Domain Allocation Diagram](https://github.com/Spinal-Tap369/Debt-Collection/blob/main/uml/Domain_allocation.png).
 ### 1. Loan Application: 
 Deals with Loan application processes such as submitting an application, approving/rejecting etc.
 ### 2. User Authentication:
@@ -87,7 +87,8 @@ This domain is responsible to check and send updates regarding Credit score.
 
 ## Core Domain Chart:
 https://github.com/Spinal-Tap369/Debt-Collection/blob/main/uml/DDD_Core_domain_chart.png
-## Relation between the Domains [Domain Relation Diagram](https://github.com/Spinal-Tap369/Debt-Collection/blob/main/uml/Domain_rel_diagram.png):
+## Relation between the Domains :
+[Domain Relation Diagram](https://github.com/Spinal-Tap369/Debt-Collection/blob/main/uml/Domain_rel_diagram.png)
 ### Loan App and User Auth:
 * User registration triggers Loan Application creation.
 * User login is required for loan application submission.
