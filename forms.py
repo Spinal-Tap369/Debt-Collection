@@ -4,7 +4,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, DateField, SubmitField
 from wtforms.validators import DataRequired, EqualTo
 
-Loan_Number = "Loan Number"
+Loan_Number = ("Loan Number",)
 
 
 # Forms
